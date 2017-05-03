@@ -17,6 +17,7 @@
 @implementation STPSourceCardDetails
 
 #pragma mark STPAPIResponseDecodable
+
 + (NSArray *)requiredFields {
     return @[];
 }
