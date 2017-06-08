@@ -46,11 +46,8 @@ class MyAPIClient: NSObject, STPBackendAPIAdapter {
             .responseJSON { response in
                 switch response.result {
                 case .success(let result):
-                    if let customer = STPCustomer.decodedObject(fromAPIResponse: result as? [String: AnyObject]) {
-                        completion(customer, nil)
-                    } else {
-                        completion(nil, NSError.customerDecodingError)
-                    }
+                    let deserializer = STPCustomerDeserializer(jsonResponse: result)
+                    completion(deserializer.customer, deserializer.error)
                 case .failure(let error):
                     completion(nil, error)
                 }
